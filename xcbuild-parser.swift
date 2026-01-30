@@ -170,10 +170,32 @@ class XcodeBuildParser {
             )
         }
 
-        // Also check for error lines without file location
-        if line.contains("error:") || line.contains("** BUILD FAILED **") {
+        // Check for build failure marker
+        if line.contains("** BUILD FAILED **") {
             let message = line.trimmingCharacters(in: .whitespaces)
             return BuildError(file: nil, line: nil, column: nil, message: message, type: "error")
+        }
+
+        // Check for tool-specific errors (clang, linker, swift compiler)
+        // These are real build errors without file:line:column format
+        let toolErrorPatterns = [
+            #"^clang: error:"#,
+            #"^ld: error:"#,
+            #"^swiftc: error:"#,
+            #"^error: linker command failed"#,
+            #"^error: fatalError"#,
+            #"^fatal error:"#,
+            #"^xcodebuild: error:"#,
+            #"^error: unable to"#,
+            #"^error: cannot"#
+        ]
+
+        let trimmedLine = line.trimmingCharacters(in: .whitespaces)
+        for pattern in toolErrorPatterns {
+            if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive),
+               regex.firstMatch(in: trimmedLine, range: NSRange(trimmedLine.startIndex..., in: trimmedLine)) != nil {
+                return BuildError(file: nil, line: nil, column: nil, message: trimmedLine, type: "error")
+            }
         }
 
         return nil
