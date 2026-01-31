@@ -1,5 +1,3 @@
-#!/usr/bin/env swift
-
 import Foundation
 
 /// Represents a build error or warning from xcodebuild output.
@@ -81,8 +79,8 @@ struct Summary: Codable {
 ///
 /// Usage:
 /// ```bash
-/// xcodebuild test -scheme "MyScheme" 2>&1 | ./xcbuild-parser.swift
-/// xcodebuild test -scheme "MyScheme" 2>&1 | ./xcbuild-parser.swift --print-warnings
+/// xcodebuild test -scheme "MyScheme" 2>&1 | xcbuild-parser
+/// xcodebuild test -scheme "MyScheme" 2>&1 | xcbuild-parser --print-warnings
 /// ```
 class XcodeBuildParser {
     private var errors: [BuildError] = []
@@ -499,6 +497,11 @@ class XcodeBuildParser {
     }
 }
 
-let printWarnings = CommandLine.arguments.contains("--print-warnings")
-let parser = XcodeBuildParser(printWarnings: printWarnings)
-parser.parse()
+@main
+struct XcodeBuildParserCLI {
+    static func main() {
+        let printWarnings = CommandLine.arguments.contains("--print-warnings")
+        let parser = XcodeBuildParser(printWarnings: printWarnings)
+        parser.parse()
+    }
+}

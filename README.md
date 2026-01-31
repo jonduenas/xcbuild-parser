@@ -4,13 +4,22 @@ A Swift script that parses xcodebuild output and converts it to structured JSON.
 
 ## Installation
 
+### Homebrew (recommended)
+
+```bash
+brew install jonduenas/tap/xcbuild-parser
+```
+
+### Build from Source
+
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/xcbuild-parser.git
+git clone https://github.com/jonduenas/xcbuild-parser.git
 cd xcbuild-parser
 
-# Make executable
-chmod +x xcbuild-parser.swift
+# Build and install
+swift build -c release
+cp .build/release/xcbuild-parser /usr/local/bin/
 ```
 
 ## Usage
@@ -19,10 +28,10 @@ Pipe xcodebuild output to the parser:
 
 ```bash
 # Parse build and test output
-xcodebuild test -scheme "MyScheme" 2>&1 | ./xcbuild-parser.swift
+xcodebuild test -scheme "MyScheme" 2>&1 | xcbuild-parser
 
 # Include warnings in the output
-xcodebuild test -scheme "MyScheme" 2>&1 | ./xcbuild-parser.swift --print-warnings
+xcodebuild test -scheme "MyScheme" 2>&1 | xcbuild-parser --print-warnings
 ```
 
 ## Output

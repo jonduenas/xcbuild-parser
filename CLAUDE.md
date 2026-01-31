@@ -4,24 +4,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-xcbuild-parser is a single-file Swift script that parses xcodebuild output and converts it to structured JSON. It reads from stdin, extracts build errors, warnings, and test results (both XCTest and Swift Testing frameworks), and outputs a JSON summary to stdout.
+xcbuild-parser is a Swift Package Manager executable that parses xcodebuild output and converts it to structured JSON. It reads from stdin, extracts build errors, warnings, and test results (both XCTest and Swift Testing frameworks), and outputs a JSON summary to stdout.
 
-## Running the Parser
+## Building and Running
 
 ```bash
-# Make executable (if needed)
-chmod +x xcbuild-parser.swift
+# Build for development
+swift build
+
+# Build for release
+swift build -c release
+
+# Run directly
+echo "BUILD SUCCEEDED" | .build/debug/xcbuild-parser
 
 # Basic usage - pipe xcodebuild output
-xcodebuild test -scheme "MyScheme" 2>&1 | ./xcbuild-parser.swift
+xcodebuild test -scheme "MyScheme" 2>&1 | .build/release/xcbuild-parser
 
 # Include warnings in output
-xcodebuild test -scheme "MyScheme" 2>&1 | ./xcbuild-parser.swift --print-warnings
+xcodebuild test -scheme "MyScheme" 2>&1 | .build/release/xcbuild-parser --print-warnings
 ```
 
 ## Architecture
 
-The codebase is a single Swift script (`xcbuild-parser.swift`) with no external dependencies. Key components:
+The codebase is a Swift Package Manager executable with source code in `Sources/xcbuild-parser/main.swift`. No external dependencies. Key components:
 
 **Data Models (Codable structs):**
 - `BuildError` - Captures errors/warnings with source location (file, line, column)
@@ -47,6 +53,12 @@ JSON with `status` ("success"/"failure"), `summary` (counts), `errors`, `warning
 Since this is a stdin/stdout parser, test by piping sample xcodebuild output:
 
 ```bash
+# Build first
+swift build
+
 # Create a test input file with sample xcodebuild output, then:
-cat test-input.txt | ./xcbuild-parser.swift
+cat test-input.txt | .build/debug/xcbuild-parser
+
+# Or test with a simple echo
+echo "BUILD SUCCEEDED" | .build/debug/xcbuild-parser
 ```
