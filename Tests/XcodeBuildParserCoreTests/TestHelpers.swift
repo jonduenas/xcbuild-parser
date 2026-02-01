@@ -1,5 +1,6 @@
 import Foundation
 import XcodeBuildParserCore
+import Synchronization
 
 extension DateProvider {
     /// Mock date provider that returns a fixed date for deterministic testing
@@ -12,10 +13,11 @@ extension DateProvider {
         startDate: Date = Date(timeIntervalSince1970: 1000.0),
         interval: TimeInterval = 5.0
     ) -> DateProvider {
-        var callCount = 0
+        let callCount: Mutex<Int> = Mutex(0)
         return DateProvider(now: {
-            defer { callCount += 1 }
-            return startDate.addingTimeInterval(Double(callCount) * interval)
+            let count = callCount.withLock { $0 }
+            defer { callCount.withLock { $0 += 1 } }
+            return startDate.addingTimeInterval(Double(count) * interval)
         })
     }
 }

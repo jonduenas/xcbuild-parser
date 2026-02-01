@@ -1,15 +1,15 @@
 import Foundation
 
 /// Provides current date/time (enables deterministic testing via dependency injection)
-public struct DateProvider {
-    public var now: () -> Date
+public struct DateProvider: Sendable {
+    public var now: @Sendable () -> Date
 
     /// Production date provider that returns actual current time
     public static let live = DateProvider(
         now: { Date() }
     )
 
-    public init(now: @escaping () -> Date) {
+    public init(now: @escaping @Sendable () -> Date) {
         self.now = now
     }
 }
