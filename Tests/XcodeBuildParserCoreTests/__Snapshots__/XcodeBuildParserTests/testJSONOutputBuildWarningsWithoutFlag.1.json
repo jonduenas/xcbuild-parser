@@ -1,0 +1,16 @@
+{
+  "errors" : [
+
+  ],
+  "status" : "success",
+  "summary" : {
+    "buildTime" : "0.000",
+    "errors" : 0,
+    "failedTests" : 0,
+    "passedTests" : 0,
+    "warnings" : 2
+  },
+  "testResults" : [
+
+  ]
+}

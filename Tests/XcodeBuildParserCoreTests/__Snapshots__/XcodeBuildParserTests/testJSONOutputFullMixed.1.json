@@ -1,0 +1,33 @@
+{
+  "errors" : [
+    {
+      "message" : "** BUILD FAILED **",
+      "type" : "error"
+    }
+  ],
+  "status" : "failure",
+  "summary" : {
+    "buildTime" : "0.000",
+    "errors" : 1,
+    "failedTests" : 2,
+    "passedTests" : 5,
+    "warnings" : 1
+  },
+  "testResults" : [
+    {
+      "duration" : 0.002,
+      "status" : "failed",
+      "suite" : "MyAppTests",
+      "testCase" : "swiftTestFail"
+    },
+    {
+      "failureMessage" : "Expected true",
+      "file" : "\/Users\/developer\/MyApp\/Tests\/MyTests.swift",
+      "line" : 55,
+      "status" : "failed",
+      "suite" : "MyAppTests",
+      "testCase" : "issueTest"
+    }
+  ],
+  "xcresultPath" : "\/Users\/developer\/Library\/Developer\/Xcode\/DerivedData\/MyApp-abc\/Logs\/Test\/Run-MyAppTests-2024.01.15_10-30-00-+0000.xcresult"
+}

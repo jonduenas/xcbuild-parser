@@ -1,0 +1,24 @@
+{
+  "errors" : [
+    {
+      "message" : "** BUILD FAILED **",
+      "type" : "error"
+    }
+  ],
+  "status" : "failure",
+  "summary" : {
+    "buildTime" : "0.000",
+    "errors" : 1,
+    "failedTests" : 1,
+    "passedTests" : 1,
+    "warnings" : 0
+  },
+  "testResults" : [
+    {
+      "duration" : 0.002,
+      "status" : "failed",
+      "suite" : "MyAppTests",
+      "testCase" : "testFailure"
+    }
+  ]
+}

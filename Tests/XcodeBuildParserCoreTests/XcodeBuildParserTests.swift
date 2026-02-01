@@ -235,89 +235,129 @@ struct XcodeBuildParserTests {
     }
 
     // MARK: - JSON Output Snapshot Tests
+    //
+    // These tests capture the complete JSON output for each fixture file.
+    // They ensure the entire output format remains stable.
+    //
+    // To update snapshots after intentional format changes:
+    //   swift test -- -record
+    //
+    // Snapshots are stored in __Snapshots__/XcodeBuildParserTests/
 
-    @Test("Build success JSON output")
-    func buildSuccessJSON() throws {
+    @Test("JSON output - build success")
+    func testJSONOutputBuildSuccess() throws {
         let lines = try loadFixture("build-success.txt")
         let parser = XcodeBuildParser()
         let summary = parser.parse(lines: lines)
 
-        // Verify structure without checking exact build time
-        #expect(summary.status == "success")
-        #expect(summary.errors.isEmpty)
-        #expect(summary.summary.errors == 0)
-        #expect(summary.summary.failedTests == 0)
-        #expect(summary.summary.passedTests == 0)
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
     }
 
-    @Test("Build failure JSON output")
-    func buildFailureJSON() throws {
+    @Test("JSON output - build failure")
+    func testJSONOutputBuildFailure() throws {
         let lines = try loadFixture("build-failure-errors.txt")
         let parser = XcodeBuildParser()
         let summary = parser.parse(lines: lines)
 
-        // Verify structure and error details
-        #expect(summary.status == "failure")
-        #expect(summary.summary.errors == 3) // 2 compilation errors + "** BUILD FAILED **"
-        #expect(summary.errors.count == 3)
-
-        // Verify first compilation error
-        #expect(summary.errors[0].file == "/Users/developer/MyApp/Sources/main.swift")
-        #expect(summary.errors[0].line == 15)
-        #expect(summary.errors[0].column == 5)
-        #expect(summary.errors[0].message == "cannot find 'foo' in scope")
-
-        // Verify second compilation error
-        #expect(summary.errors[1].file == "/Users/developer/MyApp/Sources/main.swift")
-        #expect(summary.errors[1].line == 23)
-        #expect(summary.errors[1].column == 12)
-        #expect(summary.errors[1].message == "value of type 'String' has no member 'bar'")
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
     }
 
-    @Test("XCTest failure JSON output")
-    func xctestFailureJSON() throws {
+    @Test("JSON output - build warnings (without flag)")
+    func testJSONOutputBuildWarningsWithoutFlag() throws {
+        let lines = try loadFixture("build-warnings.txt")
+        let parser = XcodeBuildParser()
+        let summary = parser.parse(lines: lines)
+
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
+
+    @Test("JSON output - build warnings (with --print-warnings)")
+    func testJSONOutputBuildWarningsWithFlag() throws {
+        let lines = try loadFixture("build-warnings.txt")
+        let parser = XcodeBuildParser(printWarnings: true)
+        let summary = parser.parse(lines: lines)
+
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
+
+    @Test("JSON output - XCTest pass")
+    func testJSONOutputXCTestPass() throws {
+        let lines = try loadFixture("xctest-pass.txt")
+        let parser = XcodeBuildParser()
+        let summary = parser.parse(lines: lines)
+
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
+
+    @Test("JSON output - XCTest failure")
+    func testJSONOutputXCTestFail() throws {
         let lines = try loadFixture("xctest-fail.txt")
         let parser = XcodeBuildParser()
         let summary = parser.parse(lines: lines)
 
-        // Verify structure and test result details
-        #expect(summary.status == "failure")
-        #expect(summary.summary.errors == 1) // BUILD FAILED marker
-        #expect(summary.summary.failedTests == 1)
-        #expect(summary.summary.passedTests == 1)
-        #expect(summary.testResults.count == 1)
-
-        // Verify failed test details
-        #expect(summary.testResults[0].suite == "MyAppTests")
-        #expect(summary.testResults[0].testCase == "testFailure")
-        #expect(summary.testResults[0].status == "failed")
-        #expect(summary.testResults[0].duration == 0.002)
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
     }
 
-    @Test("Swift Testing issue JSON output")
-    func swiftTestingIssueJSON() throws {
+    @Test("JSON output - Swift Testing pass")
+    func testJSONOutputSwiftTestingPass() throws {
+        let lines = try loadFixture("swift-testing-pass.txt")
+        let parser = XcodeBuildParser()
+        let summary = parser.parse(lines: lines)
+
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
+
+    @Test("JSON output - Swift Testing failure")
+    func testJSONOutputSwiftTestingFail() throws {
+        let lines = try loadFixture("swift-testing-fail.txt")
+        let parser = XcodeBuildParser()
+        let summary = parser.parse(lines: lines)
+
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
+
+    @Test("JSON output - Swift Testing parameterized pass")
+    func testJSONOutputSwiftTestingParameterizedPass() throws {
+        let lines = try loadFixture("swift-testing-parameterized-pass.txt")
+        let parser = XcodeBuildParser()
+        let summary = parser.parse(lines: lines)
+
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
+
+    @Test("JSON output - Swift Testing parameterized failure")
+    func testJSONOutputSwiftTestingParameterizedFail() throws {
+        let lines = try loadFixture("swift-testing-parameterized-fail.txt")
+        let parser = XcodeBuildParser()
+        let summary = parser.parse(lines: lines)
+
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
+
+    @Test("JSON output - Swift Testing issue")
+    func testJSONOutputSwiftTestingIssue() throws {
         let lines = try loadFixture("swift-testing-issue.txt")
         let parser = XcodeBuildParser()
         let summary = parser.parse(lines: lines)
 
-        // Verify structure and issue details
-        #expect(summary.status == "failure")
-        #expect(summary.summary.errors == 1) // BUILD FAILED marker
-        #expect(summary.summary.failedTests == 2)
-        #expect(summary.testResults.count == 2)
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
 
-        // Verify first issue
-        #expect(summary.testResults[0].suite == "MyAppTests")
-        #expect(summary.testResults[0].testCase == "testValidation")
-        #expect(summary.testResults[0].failureMessage == "Expectation failed")
-        #expect(summary.testResults[0].file == "/Users/developer/MyApp/Tests/ValidationTests.swift")
-        #expect(summary.testResults[0].line == 41)
+    @Test("JSON output - full mixed run")
+    func testJSONOutputFullMixed() throws {
+        let lines = try loadFixture("full-test-run-mixed.txt")
+        let parser = XcodeBuildParser()
+        let summary = parser.parse(lines: lines)
 
-        // Verify second issue
-        #expect(summary.testResults[1].suite == "MyAppTests")
-        #expect(summary.testResults[1].testCase == "testCalculation")
-        #expect(summary.testResults[1].failureMessage == "Values were not equal")
-        #expect(summary.testResults[1].file == "/Users/developer/MyApp/Tests/MathTests.swift")
-        #expect(summary.testResults[1].line == 15)
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
+    }
+
+    @Test("JSON output - xcresult path")
+    func testJSONOutputXCResultPath() throws {
+        let lines = try loadFixture("xcresult-path.txt")
+        let parser = XcodeBuildParser()
+        let summary = parser.parse(lines: lines)
+
+        assertSnapshot(of: normalizedBuildTime(summary), as: .json)
     }
 }

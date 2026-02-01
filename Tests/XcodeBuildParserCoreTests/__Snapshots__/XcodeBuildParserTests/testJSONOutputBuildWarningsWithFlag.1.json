@@ -1,0 +1,32 @@
+{
+  "errors" : [
+
+  ],
+  "status" : "success",
+  "summary" : {
+    "buildTime" : "0.000",
+    "errors" : 0,
+    "failedTests" : 0,
+    "passedTests" : 0,
+    "warnings" : 2
+  },
+  "testResults" : [
+
+  ],
+  "warnings" : [
+    {
+      "column" : 9,
+      "file" : "\/Users\/developer\/MyApp\/Sources\/Helper.swift",
+      "line" : 10,
+      "message" : "variable 'unused' was never used; consider replacing with '_' or removing it",
+      "type" : "warning"
+    },
+    {
+      "column" : 5,
+      "file" : "\/Users\/developer\/MyApp\/Sources\/Helper.swift",
+      "line" : 15,
+      "message" : "result of call to 'doSomething()' is unused",
+      "type" : "warning"
+    }
+  ]
+}

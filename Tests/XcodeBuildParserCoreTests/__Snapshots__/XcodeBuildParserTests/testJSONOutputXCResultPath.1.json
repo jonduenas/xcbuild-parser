@@ -1,0 +1,17 @@
+{
+  "errors" : [
+
+  ],
+  "status" : "success",
+  "summary" : {
+    "buildTime" : "0.000",
+    "errors" : 0,
+    "failedTests" : 0,
+    "passedTests" : 1,
+    "warnings" : 0
+  },
+  "testResults" : [
+
+  ],
+  "xcresultPath" : "\/Users\/developer\/Library\/Developer\/Xcode\/DerivedData\/MyApp-abc\/Logs\/Test\/Run-MyAppTests-2024.01.15_10-30-00-+0000.xcresult"
+}

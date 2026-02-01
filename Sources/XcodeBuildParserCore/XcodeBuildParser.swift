@@ -469,7 +469,7 @@ public class XcodeBuildParser {
         let summary = buildSummary()
 
         let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
 
         do {
             let jsonData = try encoder.encode(summary)

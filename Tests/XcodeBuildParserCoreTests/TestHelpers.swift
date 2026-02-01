@@ -1,4 +1,5 @@
 import Foundation
+import XcodeBuildParserCore
 
 /// Loads the contents of a test fixture file.
 ///
@@ -21,6 +22,30 @@ func loadFixture(_ name: String) throws -> [String] {
 
     let contents = try String(contentsOf: fixturesURL, encoding: .utf8)
     return contents.components(separatedBy: .newlines)
+}
+
+/// Normalizes buildTime to "0.000" for stable snapshot testing.
+///
+/// buildTime currently measures parser processing time (not actual build time from xcodebuild),
+/// which varies between test runs. Normalization prevents false snapshot failures.
+///
+/// TODO: Fix buildTime implementation to extract actual timing from xcodebuild output
+/// or rename/remove it to avoid confusion about what it measures.
+func normalizedBuildTime(_ summary: BuildSummary) -> BuildSummary {
+    BuildSummary(
+        status: summary.status,
+        summary: Summary(
+            errors: summary.summary.errors,
+            warnings: summary.summary.warnings,
+            passedTests: summary.summary.passedTests,
+            failedTests: summary.summary.failedTests,
+            buildTime: "0.000"
+        ),
+        errors: summary.errors,
+        warnings: summary.warnings,
+        testResults: summary.testResults,
+        xcresultPath: summary.xcresultPath
+    )
 }
 
 enum TestError: Error {

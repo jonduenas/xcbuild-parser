@@ -1,0 +1,33 @@
+{
+  "errors" : [
+    {
+      "column" : 5,
+      "file" : "\/Users\/developer\/MyApp\/Sources\/main.swift",
+      "line" : 15,
+      "message" : "cannot find 'foo' in scope",
+      "type" : "error"
+    },
+    {
+      "column" : 12,
+      "file" : "\/Users\/developer\/MyApp\/Sources\/main.swift",
+      "line" : 23,
+      "message" : "value of type 'String' has no member 'bar'",
+      "type" : "error"
+    },
+    {
+      "message" : "** BUILD FAILED **",
+      "type" : "error"
+    }
+  ],
+  "status" : "failure",
+  "summary" : {
+    "buildTime" : "0.000",
+    "errors" : 3,
+    "failedTests" : 0,
+    "passedTests" : 0,
+    "warnings" : 0
+  },
+  "testResults" : [
+
+  ]
+}
