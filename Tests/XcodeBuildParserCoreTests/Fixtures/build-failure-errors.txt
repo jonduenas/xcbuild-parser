@@ -9,4 +9,3 @@ Build settings from command line:
     str.bar()
     ~~~ ^~~
 ** BUILD FAILED **
-BUILD FAILED

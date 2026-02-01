@@ -7,4 +7,4 @@ Test Suite 'MyAppTests' passed at 2024-01-15 10:30:00.360.
 	 Executed 2 tests, with 0 failures (0 unexpected) in 0.235 (0.235) seconds
 Test session results, code coverage, and logs:
 	/Users/developer/Library/Developer/Xcode/DerivedData/MyApp-abc/Logs/Test/Run-MyAppTests-2024.01.15_10-30-00-+0000.xcresult
-BUILD SUCCEEDED
+** BUILD SUCCEEDED **

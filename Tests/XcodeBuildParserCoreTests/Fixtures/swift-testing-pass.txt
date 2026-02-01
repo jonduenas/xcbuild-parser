@@ -6,4 +6,4 @@ Test Suite 'MyAppTests' started at 2024-01-15 10:30:00.125
 ✔ Test simpleFunc() passed after 0.001 seconds.
 Test Suite 'MyAppTests' passed at 2024-01-15 10:30:00.129.
 	 Executed 3 tests, with 0 failures (0 unexpected) in 0.004 (0.004) seconds
-BUILD SUCCEEDED
+** BUILD SUCCEEDED **

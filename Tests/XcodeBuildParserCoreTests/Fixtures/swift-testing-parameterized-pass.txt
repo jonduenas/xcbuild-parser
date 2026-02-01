@@ -4,4 +4,4 @@ Test Suite 'MyAppTests' started at 2024-01-15 10:30:00.125
 ✔ Test "parameterizedTest" with 19 test cases passed after 0.050 seconds.
 Test Suite 'MyAppTests' passed at 2024-01-15 10:30:00.175.
 	 Executed 19 tests, with 0 failures (0 unexpected) in 0.050 (0.050) seconds
-BUILD SUCCEEDED
+** BUILD SUCCEEDED **

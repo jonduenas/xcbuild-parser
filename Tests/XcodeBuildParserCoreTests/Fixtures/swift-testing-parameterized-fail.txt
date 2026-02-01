@@ -1,7 +1,9 @@
 Test Suite 'All tests' started at 2024-01-15 10:30:00.123
 Test Suite 'MyAppTests.xctest' started at 2024-01-15 10:30:00.124
 Test Suite 'MyAppTests' started at 2024-01-15 10:30:00.125
+✘ Test "parameterizedTest" recorded an issue with 1 argument value → 5 at MyAppTests.swift:41:9: Expectation failed
+✘ Test "parameterizedTest" recorded an issue with 1 argument value → 10 at MyAppTests.swift:41:9: Expectation failed
 ✘ Test "parameterizedTest" with 5 test cases failed after 0.025 seconds with 2 issues.
 Test Suite 'MyAppTests' failed at 2024-01-15 10:30:00.150.
 	 Executed 5 tests, with 2 failures (0 unexpected) in 0.025 (0.025) seconds
-BUILD FAILED
+** BUILD FAILED **

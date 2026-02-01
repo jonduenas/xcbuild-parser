@@ -9,4 +9,3 @@ note: Using global toolchain
 Swiftc 1 sources
 Linking .build/debug/xcbuild-parser
 ** BUILD SUCCEEDED **
-BUILD SUCCEEDED

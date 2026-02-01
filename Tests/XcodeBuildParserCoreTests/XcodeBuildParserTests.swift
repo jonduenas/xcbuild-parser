@@ -155,10 +155,27 @@ struct XcodeBuildParserTests {
         let parser = XcodeBuildParser()
         let summary = parser.parse(lines: lines)
 
-        #expect(summary.status == "success") // No individual issue lines, so no failures tracked
+        // Build failed, so status must be failure (even if we couldn't parse all details)
+        #expect(summary.status == "failure")
         #expect(summary.summary.passedTests == 0)
-        #expect(summary.summary.failedTests == 0)
-        #expect(summary.testResults.isEmpty)
+        #expect(summary.summary.failedTests == 2) // 2 individual issues
+        #expect(summary.summary.errors == 1) // BUILD FAILED marker
+        #expect(summary.testResults.count == 2) // Only failed tests included
+
+        // Verify first failure
+        let firstFailure = summary.testResults[0]
+        #expect(firstFailure.suite == "MyAppTests")
+        #expect(firstFailure.testCase == "parameterizedTest")
+        #expect(firstFailure.status == "failed")
+        #expect(firstFailure.file == "MyAppTests.swift")
+        #expect(firstFailure.line == 41)
+        #expect(firstFailure.failureMessage == "Expectation failed")
+
+        // Verify second failure
+        let secondFailure = summary.testResults[1]
+        #expect(secondFailure.suite == "MyAppTests")
+        #expect(secondFailure.testCase == "parameterizedTest")
+        #expect(secondFailure.status == "failed")
     }
 
     @Test("Swift Testing individual issues")
@@ -265,7 +282,7 @@ struct XcodeBuildParserTests {
 
         // Verify structure and test result details
         #expect(summary.status == "failure")
-        #expect(summary.summary.errors == 0)
+        #expect(summary.summary.errors == 1) // BUILD FAILED marker
         #expect(summary.summary.failedTests == 1)
         #expect(summary.summary.passedTests == 1)
         #expect(summary.testResults.count == 1)
@@ -285,7 +302,7 @@ struct XcodeBuildParserTests {
 
         // Verify structure and issue details
         #expect(summary.status == "failure")
-        #expect(summary.summary.errors == 0)
+        #expect(summary.summary.errors == 1) // BUILD FAILED marker
         #expect(summary.summary.failedTests == 2)
         #expect(summary.testResults.count == 2)
 

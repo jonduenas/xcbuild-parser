@@ -5,4 +5,4 @@ Test Suite 'MyAppTests' started at 2024-01-15 10:30:00.125
 ✘ Test "testCalculation" recorded an issue with 2 arguments at /Users/developer/MyApp/Tests/MathTests.swift:15:5: Values were not equal
 Test Suite 'MyAppTests' failed at 2024-01-15 10:30:00.127.
 	 Executed 2 tests, with 2 failures (0 unexpected) in 0.002 (0.002) seconds
-BUILD FAILED
+** BUILD FAILED **

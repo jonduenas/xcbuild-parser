@@ -5,4 +5,4 @@ Test Case '-[MyAppTests testExample]' passed (0.001 seconds).
 Test Case '-[MyAppTests testFailure]' failed (0.002 seconds).
 Test Suite 'MyAppTests' failed at 2024-01-15 10:30:00.128.
 	 Executed 2 tests, with 1 failure (0 unexpected) in 0.003 (0.003) seconds
-BUILD FAILED
+** BUILD FAILED **

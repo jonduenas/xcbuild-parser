@@ -11,4 +11,4 @@ Build settings from command line:
     ^~~~~~~~~~~~
 Swiftc 3 sources
 Linking .build/debug/MyApp
-BUILD SUCCEEDED
+** BUILD SUCCEEDED **
