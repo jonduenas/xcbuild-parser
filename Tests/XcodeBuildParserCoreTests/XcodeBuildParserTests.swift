@@ -360,4 +360,16 @@ struct XcodeBuildParserTests {
 
         assertSnapshot(of: normalizedBuildTime(summary), as: .json)
     }
+
+    // MARK: - Build Time Tests
+
+    @Test("Build time calculated correctly with mock date provider")
+    func buildTimeCalculation() throws {
+        let lines = try loadFixture("build-success.txt")
+
+        let parser = XcodeBuildParser(dateProvider: .incrementing(interval: 5.0))
+        let summary = parser.parse(lines: lines)
+
+        #expect(summary.summary.buildTime == "5.000")
+    }
 }

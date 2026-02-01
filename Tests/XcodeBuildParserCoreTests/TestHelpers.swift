@@ -1,6 +1,25 @@
 import Foundation
 import XcodeBuildParserCore
 
+extension DateProvider {
+    /// Mock date provider that returns a fixed date for deterministic testing
+    static func mock(startDate: Date = Date(timeIntervalSince1970: 1000.0)) -> DateProvider {
+        DateProvider(now: { startDate })
+    }
+
+    /// Mock date provider that increments by a fixed interval on each call
+    static func incrementing(
+        startDate: Date = Date(timeIntervalSince1970: 1000.0),
+        interval: TimeInterval = 5.0
+    ) -> DateProvider {
+        var callCount = 0
+        return DateProvider(now: {
+            defer { callCount += 1 }
+            return startDate.addingTimeInterval(Double(callCount) * interval)
+        })
+    }
+}
+
 /// Loads the contents of a test fixture file.
 ///
 /// - Parameter name: The name of the fixture file (without path, e.g., "build-success.txt")
@@ -24,13 +43,9 @@ func loadFixture(_ name: String) throws -> [String] {
     return contents.components(separatedBy: .newlines)
 }
 
-/// Normalizes buildTime to "0.000" for stable snapshot testing.
+/// Returns a copy of the summary with buildTime set to "0.000" for snapshot consistency.
 ///
-/// buildTime currently measures parser processing time (not actual build time from xcodebuild),
-/// which varies between test runs. Normalization prevents false snapshot failures.
-///
-/// TODO: Fix buildTime implementation to extract actual timing from xcodebuild output
-/// or rename/remove it to avoid confusion about what it measures.
+/// Alternative: Use DateProvider.mock() or DateProvider.incrementing() for actual buildTime testing.
 func normalizedBuildTime(_ summary: BuildSummary) -> BuildSummary {
     BuildSummary(
         status: summary.status,

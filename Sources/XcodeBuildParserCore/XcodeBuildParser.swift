@@ -1,5 +1,19 @@
 import Foundation
 
+/// Provides current date/time (enables deterministic testing via dependency injection)
+public struct DateProvider {
+    public var now: () -> Date
+
+    /// Production date provider that returns actual current time
+    public static let live = DateProvider(
+        now: { Date() }
+    )
+
+    public init(now: @escaping () -> Date) {
+        self.now = now
+    }
+}
+
 /// Parses xcodebuild output and converts it to structured JSON.
 ///
 /// This parser reads xcodebuild output line-by-line, extracting build errors,
@@ -19,9 +33,11 @@ public class XcodeBuildParser {
     private var endTime: Date?
     private var xcresultPath: String?
     private let printWarnings: Bool
+    private let dateProvider: DateProvider
 
-    public init(printWarnings: Bool = false) {
+    public init(printWarnings: Bool = false, dateProvider: DateProvider = .live) {
         self.printWarnings = printWarnings
+        self.dateProvider = dateProvider
     }
 
     /// Parses xcodebuild output from stdin and outputs JSON summary to stdout.
@@ -33,7 +49,7 @@ public class XcodeBuildParser {
 
         while let line = readLine() {
             if startTime == nil {
-                startTime = Date()
+                startTime = dateProvider.now()
             }
 
             // Parse build errors and warnings
@@ -64,12 +80,12 @@ public class XcodeBuildParser {
 
             // Check for completion
             if line.contains("Test session results") || line.contains("BUILD SUCCEEDED") || line.contains("BUILD FAILED") {
-                endTime = Date()
+                endTime = dateProvider.now()
             }
         }
 
         if endTime == nil {
-            endTime = Date()
+            endTime = dateProvider.now()
         }
 
         outputSummary()
@@ -84,7 +100,7 @@ public class XcodeBuildParser {
         errors = []
         warnings = []
         testResults = []
-        startTime = Date()
+        startTime = dateProvider.now()
         endTime = nil
         xcresultPath = nil
 
@@ -119,12 +135,12 @@ public class XcodeBuildParser {
 
             // Check for completion
             if line.contains("Test session results") || line.contains("BUILD SUCCEEDED") || line.contains("BUILD FAILED") {
-                endTime = Date()
+                endTime = dateProvider.now()
             }
         }
 
         if endTime == nil {
-            endTime = Date()
+            endTime = dateProvider.now()
         }
 
         return buildSummary()
