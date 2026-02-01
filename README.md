@@ -1,6 +1,17 @@
 # xcbuild-parser
 
-A Swift script that parses xcodebuild output and converts it to structured JSON. Supports both XCTest and Swift Testing frameworks, including parameterized tests.
+A Swift tool that parses xcodebuild output and converts it to clean, structured JSON designed for LLM coding agents.
+
+## Purpose
+
+xcodebuild produces verbose, hard-to-parse output that clutters LLM context windows. xcbuild-parser solves this by:
+
+- **Keeping context clean** - Strips away verbose build logs, providing only actionable information
+- **Clear issue identification** - Presents errors, warnings, and test failures in a structured format with precise file locations (path, line, column)
+- **Enabling agents to fix issues** - Gives LLMs exactly what they need to understand problems and navigate to the right code
+- **Efficient debugging** - Includes the .xcresult bundle path when additional build or test information is needed
+
+Supports both XCTest and Swift Testing frameworks, including parameterized tests.
 
 ## Installation
 
