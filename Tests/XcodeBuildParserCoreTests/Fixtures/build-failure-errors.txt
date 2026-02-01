@@ -1,0 +1,12 @@
+Build settings from command line:
+    TOOLCHAINS = default
+
+=== BUILD TARGET MyApp OF PROJECT MyApp WITH CONFIGURATION Debug ===
+/Users/developer/MyApp/Sources/main.swift:15:5: error: cannot find 'foo' in scope
+    foo()
+    ^~~
+/Users/developer/MyApp/Sources/main.swift:23:12: error: value of type 'String' has no member 'bar'
+    str.bar()
+    ~~~ ^~~
+** BUILD FAILED **
+BUILD FAILED

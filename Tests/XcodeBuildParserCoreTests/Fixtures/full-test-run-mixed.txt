@@ -1,0 +1,23 @@
+Build settings from command line:
+    TOOLCHAINS = default
+
+=== BUILD TARGET MyApp OF PROJECT MyApp WITH CONFIGURATION Debug ===
+/Users/developer/MyApp/Sources/Helper.swift:10:9: warning: variable 'unused' was never used; consider replacing with '_' or removing it
+    let unused = 42
+        ^~~~~~
+        _
+Swiftc 5 sources
+Linking .build/debug/MyApp
+Test Suite 'All tests' started at 2024-01-15 10:30:00.123
+Test Suite 'MyAppTests.xctest' started at 2024-01-15 10:30:00.124
+Test Suite 'MyAppTests' started at 2024-01-15 10:30:00.125
+Test Case '-[MyAppTests testXCTestPass]' passed (0.001 seconds).
+✔ Test "swiftTestPass" passed after 0.001 seconds.
+✔ Test "parameterized" with 3 test cases passed after 0.015 seconds.
+✗ Test "swiftTestFail" failed after 0.002 seconds.
+✘ Test "issueTest" recorded an issue with 1 argument at /Users/developer/MyApp/Tests/MyTests.swift:55:9: Expected true
+Test Suite 'MyAppTests' failed at 2024-01-15 10:30:00.144.
+	 Executed 7 tests, with 2 failures (0 unexpected) in 0.019 (0.019) seconds
+Test session results, code coverage, and logs:
+	/Users/developer/Library/Developer/Xcode/DerivedData/MyApp-abc/Logs/Test/Run-MyAppTests-2024.01.15_10-30-00-+0000.xcresult
+BUILD FAILED

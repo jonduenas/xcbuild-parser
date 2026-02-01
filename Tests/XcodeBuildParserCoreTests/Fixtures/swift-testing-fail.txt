@@ -1,0 +1,8 @@
+Test Suite 'All tests' started at 2024-01-15 10:30:00.123
+Test Suite 'MyAppTests.xctest' started at 2024-01-15 10:30:00.124
+Test Suite 'MyAppTests' started at 2024-01-15 10:30:00.125
+✔ Test "passingTest" passed after 0.001 seconds.
+✗ Test "failingTest" failed after 0.002 seconds.
+Test Suite 'MyAppTests' failed at 2024-01-15 10:30:00.128.
+	 Executed 2 tests, with 1 failure (0 unexpected) in 0.003 (0.003) seconds
+BUILD FAILED

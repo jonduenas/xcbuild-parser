@@ -1,0 +1,14 @@
+Build settings from command line:
+    TOOLCHAINS = default
+
+=== BUILD TARGET MyApp OF PROJECT MyApp WITH CONFIGURATION Debug ===
+/Users/developer/MyApp/Sources/Helper.swift:10:9: warning: variable 'unused' was never used; consider replacing with '_' or removing it
+    let unused = 42
+        ^~~~~~
+        _
+/Users/developer/MyApp/Sources/Helper.swift:15:5: warning: result of call to 'doSomething()' is unused
+    doSomething()
+    ^~~~~~~~~~~~
+Swiftc 3 sources
+Linking .build/debug/MyApp
+BUILD SUCCEEDED

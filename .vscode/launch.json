@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:xcbuild-parser}",
+            "name": "Debug xcbuild-parser",
+            "target": "xcbuild-parser",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug xcbuild-parser"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:xcbuild-parser}",
+            "name": "Release xcbuild-parser",
+            "target": "xcbuild-parser",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release xcbuild-parser"
+        }
+    ]
+}

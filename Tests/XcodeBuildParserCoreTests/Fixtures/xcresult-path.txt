@@ -1,0 +1,9 @@
+Test Suite 'All tests' started at 2024-01-15 10:30:00.123
+Test Suite 'MyAppTests.xctest' started at 2024-01-15 10:30:00.124
+Test Suite 'MyAppTests' started at 2024-01-15 10:30:00.125
+✔ Test "simpleTest" passed after 0.001 seconds.
+Test Suite 'MyAppTests' passed at 2024-01-15 10:30:00.126.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test session results, code coverage, and logs:
+	/Users/developer/Library/Developer/Xcode/DerivedData/MyApp-abc/Logs/Test/Run-MyAppTests-2024.01.15_10-30-00-+0000.xcresult
+BUILD SUCCEEDED

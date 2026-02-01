@@ -1,0 +1,12 @@
+Build settings from command line:
+    TOOLCHAINS = default
+
+User defaults from command line:
+    IDEPackageSupportUseBuiltinSCM = YES
+
+note: Using global toolchain
+=== BUILD TARGET xcbuild-parser-tool OF PROJECT xcbuild-parser WITH CONFIGURATION Debug ===
+Swiftc 1 sources
+Linking .build/debug/xcbuild-parser
+** BUILD SUCCEEDED **
+BUILD SUCCEEDED
